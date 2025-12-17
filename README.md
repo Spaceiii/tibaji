@@ -1,59 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎯 Projet Laravel - Armurerie en Ligne
+Bienvenue sur le dépôt de notre application de gestion d'armurerie. Ce projet a été développé dans le cadre scolaire pour répondre à une problématique métier complexe : la gestion mixte de ventes libres (accessoires) et de ventes réglementées (armes).
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 👥 L'Équipe
+Dulieux Baptiste
+Meyer Timothée
+Froehly Jean-Baptiste
 
-## About Laravel
+# 📝 Description du Projet
+L'objectif de cette application est de digitaliser la gestion d'une armurerie physique en connectant trois acteurs : l'Armurier (Admin), le Client et le Visiteur.
+L'application gère une logique de vente différenciée :
+Vente directe pour les équipements tactiques et accessoires (non soumis à déclaration).
+Vente réglementée pour les armes (Catégorie ```B``` et ```C```), nécessitant une vérification administrative stricte (upload et validation de licence).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 🛠️ Stack Technique
+Framework : Laravel
+Base de Données : MySQL
+Authentification : Laravel Breeze
+Sécurité : Middleware personnalisé & Protection par rôles
+Architecture : Structure de la BDD générée intégralement par migrations
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 🚀 Fonctionnalités
+## 1. Partie Publique (Visiteur)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Catalogue Unifié : Consultation des articles avec filtres (Armes de poing, Fusils, Accessoires, Optiques).
+Restriction d'accès : Les prix et le bouton "Réserver" sont masqués pour les visiteurs non connectés.
+Authentification : Connexion et inscription requises pour interagir.
 
-## Learning Laravel
+## 2. Espace Client (Connecté)
+Accès complet : Visualisation des prix et des stocks.
+Profil : Gestion des informations personnelles.
+Flux d'achat différencié :
+🟢 Accessoires : Ajout au panier et réservation directe.
+🔴 Armes : Ajout au panier possible, mais la validation est bloquée tant qu'une licence (SIA/Permis) n'est pas uploadée et validée.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 3. Espace Armurier (Administration)
+CRUD Armes (Weapon) : Gestion stricte (Numéro de série, Calibre, Catégorie).
+CRUD Accessoires (Accessory) : Gestion simplifiée (Nom, Type, Prix, Stock).
+Gestion des Réservations : Vue liste des demandes et validation de la remise de l'arme après vérification physique.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# 💾 Structure de la Base de Données
+Le projet repose sur 4 modèles principaux :
 
-## Laravel Sponsors
+| Table | Champs Principaux | Description |
+| users | id, name, email, role | role est un enum ('admin', 'client') |
+| weapons | id, model, brand, caliber, category, serial_number, price, quantity | Produits réglementés (Catégorie B ou C) |
+| accessories | id, name, type, price, quantity, description | Produits en vente libre (Optique, vêtements...) |
+| licenses | id, user_id, license_number, expiration_date, type | Documents de validité du client |
+# ⚙️ Installation en local
+Pour installer et lancer le projet :
+Cloner le dépôt
+```sh
+git clone [https://github.com/votre-user/votre-repo.git](https://github.com/votre-user/votre-repo.git)
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Installer les dépendances
+```sh
+composer install
+npm install
+```
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Configurer l'environnement
+```sh
+cp .env.example .env
+php artisan key:generate
+```
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+N'oubliez pas de configurer votre base de données dans le fichier .env.
+Exécuter les migrations
+```sh
+php artisan migrate
+```
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Lancer le serveur
+```sh
+npm run dev
+php artisan serve
+```
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Dernière mise à jour : 17 Décembre 2025
