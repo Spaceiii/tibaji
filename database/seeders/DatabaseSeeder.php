@@ -46,13 +46,22 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Fusil de précision'],
         ]);
 
-        
-        User::factory(9)->create();
+        // Créer l'admin
         User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
+            'name' => 'Admin Tibaji',
+            'email' => 'admin@tibaji.fr',
             'role' => 'admin',
         ]);
+
+        // Créer un client de test
+        User::factory()->create([
+            'name' => 'Client Test',
+            'email' => 'client@tibaji.fr',
+            'role' => 'client',
+        ]);
+
+        // Créer d'autres utilisateurs
+        User::factory(8)->create();
 
         AccessoryType::factory()->createMany([
             ['name' => 'Lunette'],

@@ -13,10 +13,9 @@ class Accessory extends Model
     protected $fillable = [
         'name',
         'accessory_type_id',
-        'brand',
-        'model',
         'price',
         'quantity',
+        'description',
     ];
 
     public function accessoryType()

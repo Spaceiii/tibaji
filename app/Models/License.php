@@ -11,11 +11,14 @@ class License extends Model
 
     protected $table = 'licenses';
     protected $fillable = [
+        'user_id',
         'license_number',
-        'issued_by',
-        'issue_date',
-        'expiry_date',
-        'holder_name',
+        'expiration_date',
+        'level',
+    ];
+
+    protected $casts = [
+        'expiration_date' => 'date',
     ];
 
     public function user()
