@@ -22,8 +22,10 @@ class WeaponFactory extends Factory
             'weapon_type_id' => WeaponType::all()->random()->id,
             'caliber' => fake()->randomElement(['9mm', '5.56mm', '7.62mm', '12 gauge', '45 ACP', '22 LR', '308 Win']),
             'serial_number' => fake()->unique()->bothify('SN-#####??'),
-            'manufacturer' => fake()->company(),
-            'year_manufactured' => fake()->numberBetween(1990, 2024),
+            'brand' => fake()->company(),
+            'category' => fake()->randomElement(['B', 'C', 'D']),
+            'price' => fake()->randomFloat(2, 100, 5000),
+            'quantity' => fake()->numberBetween(1, 100),
         ];
     }
 }

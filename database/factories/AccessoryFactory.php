@@ -18,11 +18,11 @@ class AccessoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'model' => fake()->word(),
+            'name' => fake()->word(),
+            'description' => fake()->sentence(),
+            'quantity' => fake()->numberBetween(1, 100),
+            'price' => fake()->randomFloat(2, 10, 1000),
             'accessory_type_id' => AccessoryType::all()->random()->id,
-            'serial_number' => fake()->unique()->bothify('AC-#####??'),
-            'manufacturer' => fake()->company(),
-            'year_manufactured' => fake()->numberBetween(1990, 2024),
         ];
     }
 }

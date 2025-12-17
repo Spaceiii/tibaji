@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('license_number')->unique();
             $table->date('expiration_date');
-            $table->string('type');
+            $table->enum('level', ['B', 'C', 'D']);
             $table->timestamps();
         });
     }
