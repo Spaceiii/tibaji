@@ -51,4 +51,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(License::class, 'user_id', 'id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isClient()
+    {
+        return $this->role === 'client';
+    }
+
+    public function hasValidLicenseFor($category)
+    {
+        return $this->licenses()
+            ->where('level', $category)
+            ->where('status', 'approved')
+            ->where('expiration_date', '>', now())
+            ->exists();
+    }
 }

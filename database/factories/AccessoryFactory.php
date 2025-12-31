@@ -23,6 +23,7 @@ class AccessoryFactory extends Factory
             'quantity' => fake()->numberBetween(1, 100),
             'price' => fake()->randomFloat(2, 10, 1000),
             'accessory_type_id' => AccessoryType::all()->random()->id,
+            'image' => fake()->optional()->imageUrl(640, 480, 'accessories', true),
         ];
     }
 }
