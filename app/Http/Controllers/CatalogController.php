@@ -15,4 +15,11 @@ class CatalogController extends Controller
 
         return view('catalog.index', compact('weapons'));
     }
+
+    public function show(Weapon $weapon)
+    {
+        $weapon->load('weaponType');
+
+        return view('catalog.show', compact('weapon'));
+    }
 }

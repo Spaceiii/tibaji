@@ -44,14 +44,14 @@ L'application gère une logique de vente différenciée :
 # 💾 Structure de la Base de Données
 Le projet repose sur 6 tables principales :
 
-| Table | Champs Principaux | Description |
-| --- | --- | --- |
-| **users** | id, name, email, password, role, email_verified_at, remember_token | Utilisateurs (role : 'admin' ou 'client') |
-| **weapons** | id, model, brand, weapon_type_id, caliber, category, serial_number, price, quantity | Produits réglementés (Catégorie B, C ou D) |
-| **weapon_types** | id, name | Types d'armes (Pistolet, Fusil, etc.) |
-| **accessories** | id, name, accessory_type_id, price, quantity, description | Produits en vente libre (Optiques, vêtements, etc.) |
-| **accessory_types** | id, name | Types d'accessoires (Optique, Vêtement, Munitions, etc.) |
-| **licenses** | id, user_id, license_number, expiration_date, level | Permis du client (level : 'B', 'C' ou 'D') |
+| Table | Champs Principaux                                                                                       | Description |
+| --- |---------------------------------------------------------------------------------------------------------| --- |
+| **users** | id, name, email, password, role, email_verified_at, remember_token                                      | Utilisateurs (role : 'admin' ou 'client') |
+| **weapons** | id, model, brand, weapon_type_id, caliber, category, serial_number, price, quantity, image, description | Produits réglementés (Catégorie B, C ou D) |
+| **weapon_types** | id, name                                                                                                | Types d'armes (Pistolet, Fusil, etc.) |
+| **accessories** | id, name, accessory_type_id, price, quantity, description                                               | Produits en vente libre (Optiques, vêtements, etc.) |
+| **accessory_types** | id, name                                                                                                | Types d'accessoires (Optique, Vêtement, Munitions, etc.) |
+| **licenses** | id, user_id, license_number, expiration_date, level                                                     | Permis du client (level : 'B', 'C' ou 'D') |
 
 ## Relations clés
 - `weapons.weapon_type_id` → `weapon_types.id` (Restrict on Delete)

@@ -76,6 +76,7 @@ class WeaponController extends Controller
 
         $validated = $request->validate([
             'model' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'brand' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'weapon_type_id' => 'required|exists:weapon_types,id',

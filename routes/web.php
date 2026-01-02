@@ -15,6 +15,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/catalogue', [CatalogController::class, 'index'])->name('catalog.index');
+Route::get('/catalogue/{weapon}', [CatalogController::class, 'show'])->name('catalog.show');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('weapons', WeaponController::class);
