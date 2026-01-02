@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-center">
                     <h1 class="text-6xl font-bold mb-4 text-gray-800">Tibaji Armory</h1>
-                    <p class="text-2xl text-gray-600">Armurerie de confiance</p>
+                    <p class="text-2xl text-gray-600">Votre armurerie accessible partout !</p>
                 </div>
             </div>
         </div>
