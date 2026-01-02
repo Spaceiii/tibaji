@@ -26,7 +26,11 @@ class WeaponFactory extends Factory
             'category' => fake()->randomElement(['B', 'C', 'D']),
             'price' => fake()->randomFloat(2, 100, 5000),
             'quantity' => fake()->numberBetween(1, 100),
-            'image' => fake()->optional()->imageUrl(640, 480, 'weapons', true),
+            'image' => fake()->randomElement([
+                'weapons/default.png',
+                'weapons/fusil.jpg',
+                'weapons/pistolet.jpg'
+            ]),
         ];
     }
 }
