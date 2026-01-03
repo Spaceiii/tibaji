@@ -12,6 +12,7 @@ class Weapon extends Model
     protected $table = 'weapons';
     protected $fillable = [
         'model',
+        'description',
         'brand',
         'weapon_type_id',
         'caliber',

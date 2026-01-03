@@ -24,7 +24,7 @@ Route::get('/catalogue/{weapon}', [CatalogController::class, 'show'])->name('cat
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('weapons', WeaponController::class);
-//    Route::resource('accessories', AccessoryController::class);
+    Route::resource('accessories', AccessoryController::class);
 });
 
 Route::middleware('auth')->group(function () {
