@@ -30,11 +30,8 @@
                                 {{ __('Gérer les Armes') }}
                             </x-nav-link>
 
-                            <x-nav-link href="#" class="opacity-50 cursor-not-allowed group relative" title="Bientôt disponible">
-                                {{ __('Accessoires') }}
-                                <span class="absolute -top-1 -right-2 flex h-2 w-2">
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-400"></span>
-                                </span>
+                            <x-nav-link :href="route('admin.accessories.index')" :active="request()->routeIs('admin.accessories.*')">
+                                {{ __('Gérer les Accessoires') }}
                             </x-nav-link>
                         @else
                             <x-nav-link href="#" :active="false" class="flex items-center gap-2">
@@ -146,6 +143,9 @@
                     <div class="border-t border-gray-100 my-2 pt-2 px-4 text-xs font-bold text-indigo-500 uppercase tracking-widest">Admin</div>
                     <x-responsive-nav-link :href="route('admin.weapons.index')" :active="request()->routeIs('admin.weapons.*')">
                         {{ __('Gérer les Armes') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.accessories.index')" :active="request()->routeIs('admin.accessories.*')">
+                        {{ __('Gérer les Accessoires') }}
                     </x-responsive-nav-link>
                 @else
                     <div class="border-t border-gray-100 my-2 pt-2 px-4 text-xs font-bold text-indigo-500 uppercase tracking-widest">Client</div>

@@ -35,16 +35,16 @@
                         <div class="mt-4 text-sm font-semibold text-indigo-600">Accéder au stock &rarr;</div>
                     </a>
 
-                    <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm opacity-60">
+                    <a href="{{ route('admin.accessories.index') }}" class="group block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 hover:shadow-md transition">
                         <div class="flex items-center justify-between mb-4">
-                            <h5 class="text-xl font-bold text-gray-500">Accessoires</h5>
-                            <div class="p-3 bg-gray-100 rounded-full text-gray-500">
+                            <h5 class="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition">Accessoires</h5>
+                            <div class="p-3 bg-emerald-100 rounded-full text-emerald-600">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                             </div>
                         </div>
-                        <p class="text-gray-500 text-sm">Gérer les optiques, munitions et équipements tactiques.</p>
-                        <div class="mt-4 text-xs font-bold text-gray-400 uppercase tracking-wide">Bientôt disponible</div>
-                    </div>
+                        <p class="text-gray-600 text-sm">Gérer les optiques, munitions et équipements tactiques.</p>
+                        <div class="mt-4 text-sm font-semibold text-emerald-600">Accéder au stock &rarr;</div>
+                    </a>
 
                     <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
                         <div class="flex items-center justify-between mb-4">
