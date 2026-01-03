@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\WeaponController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Weapon;
+use App\Models\Accessory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +13,13 @@ Route::get('/', function () {
         ->orderBy('created_at', 'desc')
         ->take(4)
         ->get();
-    return view('welcome', compact('featuredWeapons'));
+    
+    $featuredAccessories = Accessory::with('accessoryType')
+        ->orderBy('created_at', 'desc')
+        ->take(4)
+        ->get();
+    
+    return view('welcome', compact('featuredWeapons', 'featuredAccessories'));
 })->name('welcome');
 
 Route::get('/dashboard', function () {

@@ -10,10 +10,9 @@ class CatalogController extends Controller
     public function index()
     {
         $weapons = Weapon::with('weaponType')->get();
-        // On pourrait aussi passer les accessoires ici :
-        $accessories = Accessory::all();
+        $accessories = Accessory::with('accessoryType')->get();
 
-        return view('catalog.index', compact('weapons'));
+        return view('catalog.index', compact('weapons', 'accessories'));
     }
 
     public function show(Weapon $weapon)

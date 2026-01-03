@@ -171,6 +171,68 @@
 
     <div class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900 tracking-tight">Accessoires Populaires</h2>
+                    <p class="mt-2 text-lg text-gray-500">Complétez votre équipement avec nos accessoires.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                @foreach($featuredAccessories as $accessory)
+                    <div class="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full overflow-hidden group hover:-translate-y-2">
+
+                        <div class="relative h-60 bg-gray-50 p-6 flex items-center justify-center overflow-hidden">
+                            @if($accessory->quantity == 0)
+                                <div class="absolute top-4 right-4 bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full z-10">
+                                    Rupture
+                                </div>
+                            @endif
+
+                            @if($accessory->image)
+                                <img src="{{ Storage::url($accessory->image) }}" alt="{{ $accessory->name }}" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
+                            @else
+                                <div class="text-gray-300 flex flex-col items-center"><span class="text-xs font-bold uppercase">Image N/A</span></div>
+                            @endif
+                        </div>
+
+                        <div class="p-6 flex-grow flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-emerald-500 uppercase tracking-wide">{{ $accessory->accessoryType->name ?? 'Accessoire' }}</span>
+                            </div>
+
+                            <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2 leading-snug">{{ $accessory->name }}</h4>
+
+                            @if($accessory->description)
+                                <p class="text-xs text-gray-500 line-clamp-2 mb-3">{{ $accessory->description }}</p>
+                            @endif
+
+                            <div class="mt-auto pt-4 flex justify-between items-center border-t border-gray-50">
+                                @auth
+                                    <span class="text-xl font-extrabold text-gray-900">{{ number_format($accessory->price, 2, ',', ' ') }} €</span>
+                                @else
+                                    <span class="text-xs text-gray-500 italic">Prix membre</span>
+                                @endauth
+
+                                <button class="bg-gray-100 text-gray-600 p-2.5 rounded-full hover:bg-emerald-600 hover:text-white transition shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                @if($featuredAccessories->isEmpty())
+                    <div class="col-span-4 text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+                        <p class="text-gray-500 font-medium">Les accessoires arrivent bientôt...</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center tracking-tight">Nos Univers</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -194,23 +256,25 @@
                     </div>
                 </a>
 
-                <div class="group relative overflow-hidden h-96 rounded-[2.5rem] shadow-lg cursor-not-allowed">
-                    <div class="absolute inset-0 grayscale">
-                        <img src="{{ asset('welcome/munitions.jpg') }}" alt="Munitions" class="w-full h-full object-cover">
-                    </div>
-                    <div class="absolute inset-0 bg-gray-900/70 backdrop-blur-[2px]"></div>
-
-                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                        <div class="bg-white/10 p-4 rounded-full mb-4">
-                            <svg class="w-8 h-8 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                <div class="group relative overflow-hidden h-96 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-500">
+                    <a href="{{ route('catalog.index') }}#accessoires" class="block h-full">
+                        <div class="absolute inset-0 group-hover:scale-105 transition duration-1000 ease-in-out">
+                            <img src="{{ asset('welcome/munitions.jpg') }}" alt="Accessoires" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-4xl font-bold text-white/50 mb-2">Accessoires</h3>
-                        <p class="text-gray-400 mb-8 font-medium">Optiques • Chargeurs • Tactique</p>
+                        <div class="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-emerald-900/40 to-transparent"></div>
 
-                        <span class="inline-flex items-center px-6 py-2 bg-white/10 text-gray-300 font-bold rounded-full border border-white/20 backdrop-blur-md">
-                            Bientôt disponible
-                        </span>
-                    </div>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 translate-y-4 group-hover:translate-y-0 transition duration-500">
+                            <div class="bg-white/20 p-4 rounded-full mb-4 backdrop-blur-md">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                            <h3 class="text-4xl font-bold text-white mb-2 drop-shadow-md">Accessoires</h3>
+                            <p class="text-gray-200 mb-8 font-medium max-w-sm opacity-90">Optiques • Chargeurs • Équipement Tactique</p>
+
+                            <span class="inline-flex items-center px-8 py-3 bg-white text-gray-900 font-bold rounded-full hover:bg-emerald-600 hover:text-white transition duration-300 shadow-lg">
+                                Découvrir les accessoires
+                            </span>
+                        </div>
+                    </a>
                 </div>
 
             </div>
