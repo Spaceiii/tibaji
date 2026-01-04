@@ -100,9 +100,9 @@
 
                         <div class="prose prose-indigo text-gray-600 mb-8 flex-grow">
                             <h4 class="font-bold text-gray-900 mb-2">Description</h4>
-                            <p>
+                            <div class="prose prose-indigo max-w-none text-gray-600 leading-relaxed whitespace-pre-line text-justify">
                                 {{ $weapon->description ?? "Aucune description détaillée n'est disponible pour ce produit pour le moment. Veuillez contacter l'armurerie pour plus d'informations." }}
-                            </p>
+                            </div>
                         </div>
 
                         <div class="mt-auto pt-6 border-t border-gray-100">
