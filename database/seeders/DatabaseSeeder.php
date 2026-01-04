@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. NETTOYAGE COMPLET
         Schema::disableForeignKeyConstraints();
         ReservationItem::truncate();
         Reservation::truncate();

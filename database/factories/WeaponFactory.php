@@ -20,7 +20,7 @@ class WeaponFactory extends Factory
         return [
             'model' => fake()->word(),
             'weapon_type_id' => WeaponType::all()->random()->id,
-            'caliber' => fake()->randomElement(['9mm', '5.56mm', '7.62mm', '12 gauge', '45 ACP', '22 LR', '308 Win']),
+            'caliber' => fake()->randomElement(['9mm PARA', '.223 Rem', '.308 Win', '12/76', '.45 ACP', '.22 LR', '6.5 Creedmoor', '.44 Mag']),
             'serial_number' => fake()->unique()->bothify('SN-#####??'),
             'brand' => fake()->company(),
             'category' => fake()->randomElement(['B', 'C', 'D']),
