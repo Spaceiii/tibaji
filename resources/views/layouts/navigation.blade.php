@@ -33,6 +33,9 @@
                             <x-nav-link :href="route('admin.accessories.index')" :active="request()->routeIs('admin.accessories.*')">
                                 {{ __('Gérer les Accessoires') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.licenses.index')" :active="request()->routeIs('admin.licenses.*')">
+                                {{ __('Licences') }}
+                            </x-nav-link>
                         @else
                             <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')" class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,7 +89,7 @@
                                 </x-dropdown-link>
 
                                 @if(Auth::user()->role !== 'admin')
-                                    <x-dropdown-link href="#">
+                                    <x-dropdown-link :href="route('license.create')">
                                         {{ __('Ma Licence') }}
                                     </x-dropdown-link>
                                 @endif
@@ -151,6 +154,9 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.accessories.index')" :active="request()->routeIs('admin.accessories.*')">
                         {{ __('Gérer les Accessoires') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.licenses.index')" :active="request()->routeIs('admin.licenses.*')">
+                        {{ __('Vérification Permis') }}
                     </x-responsive-nav-link>
                 @else
                     <div class="border-t border-gray-100 my-2 pt-2 px-4 text-xs font-bold text-indigo-500 uppercase tracking-widest">Client</div>

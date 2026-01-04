@@ -10,32 +10,26 @@ use Illuminate\Support\Facades\Storage; // <--- Indispensable pour gérer les fi
 
 class WeaponController extends Controller
 {
-    // Affiche la liste (Vue Index)
     public function index()
     {
-        // On récupère les armes avec leur type pour éviter les requêtes N+1
         $weapons = Weapon::with('weaponType')->get();
         return view('admin.weapons.index', compact('weapons'));
     }
 
     public function create()
     {
-        $types = WeaponType::all(); // Pour le menu déroulant
+        $types = WeaponType::all();
         return view('admin.weapons.create', compact('types'));
     }
 
-    // Enregistre l'arme en BDD
     public function store(Request $request)
     {
-        // 1. Déterminer quel calibre utiliser AVANT la validation
         $caliber = $request->input('caliber_select') === 'custom'
             ? $request->input('caliber_manual')
             : $request->input('caliber_select');
 
-        // On injecte la valeur finale dans la requête pour la valider proprement sous le nom 'caliber'
         $request->merge(['caliber' => $caliber]);
 
-        // 2. Validation
         $validated = $request->validate([
             'model' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
@@ -48,11 +42,11 @@ class WeaponController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        // 3. Gestion de l'image à la création
+
         if ($request->hasFile('image')) {
-            // Stocke dans storage/app/public/weapons et renvoie le chemin
+
             $path = $request->file('image')->store('weapons', 'public');
-            $validated['image'] = $path; // On utilise bien 'image' comme nom de colonne
+            $validated['image'] = $path;
         }
 
         Weapon::create($validated);
