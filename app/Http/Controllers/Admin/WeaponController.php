@@ -41,6 +41,11 @@ class WeaponController extends Controller
             'serial_number' => 'required|unique:weapons',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:0',
+        ], [
+            'caliber.required' => 'Le calibre est obligatoire (sélectionnez-en un ou entrez-le manuellement).',
+            'serial_number.unique' => 'Ce numéro de série existe déjà.',
+            'serial_number.required' => 'Le numéro de série est requis.',
+            'image.max' => 'L\'image ne doit pas dépasser 2Mo.',
         ]);
 
 
@@ -80,6 +85,9 @@ class WeaponController extends Controller
             'serial_number' => 'required|unique:weapons,serial_number,' . $weapon->id,
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:0',
+        ], [
+            'caliber.required' => 'Le calibre est obligatoire.',
+            'serial_number.unique' => 'Ce numéro de série est déjà pris.',
         ]);
 
         if ($request->hasFile('image')) {
