@@ -1,92 +1,139 @@
+Voici le fichier `README.md` mis à jour. J'ai intégré les **nouvelles tables** (notamment la structure complète des licences avec le statut, les dates de soumission/vérification, et les commentaires admin) ainsi que les nouvelles fonctionnalités que nous avons développées (Dashboard "Tactique", Upload avec prévisualisation, Workflow de validation).
+
+---
+
 # 🎯 Projet Laravel - Armurerie en Ligne
-Bienvenue sur le dépôt de notre application de gestion d'armurerie. Ce projet a été développé dans le cadre scolaire pour répondre à une problématique métier complexe : la gestion mixte de ventes libres (accessoires) et de ventes réglementées (armes).
+
+Bienvenue sur le dépôt de notre application de gestion d'armurerie. Ce projet a été développé dans le cadre scolaire pour répondre à une problématique métier complexe : la gestion mixte de ventes libres (accessoires) et de ventes réglementées (armes), avec un accent particulier sur la conformité légale (SIA).
 
 # 👥 L'Équipe
-- **Dulieux Baptiste**
-- **Meyer Timothée**
-- **Froehly Jean-Baptiste**
+
+* **Dulieux Baptiste**
+* **Meyer Timothée**
+* **Froehly Jean-Baptiste**
 
 # 📝 Description du Projet
+
 L'objectif de cette application est de digitaliser la gestion d'une armurerie physique en connectant trois acteurs : l'Armurier (Admin), le Client et le Visiteur.
 
-L'application gère une logique de vente différenciée :
-- **Vente directe** pour les équipements tactiques et accessoires (non soumis à déclaration).
-- **Vente réglementée** pour les armes (Catégories **B**, **C** et **D**), nécessitant une vérification administrative stricte (upload et validation de permis).
+L'application gère une logique de vente différenciée et sécurisée :
+
+* **Vente directe** pour les équipements tactiques et accessoires.
+* **Vente réglementée** pour les armes (Catégories **B**, **C**), nécessitant une vérification administrative stricte.
+* **Workflow de validation** : Un client ne peut pas commander d'arme tant que son dossier (Licence de tir ou Permis de chasse) n'a pas été vérifié et validé manuellement par un administrateur.
 
 # 🛠️ Stack Technique
-- **Framework** : Laravel 11
-- **Base de Données** : MySQL
-- **Authentification** : Laravel Breeze
-- **Frontend** : Blade, Tailwind CSS, Alpine.js
-- **Sécurité** : Middleware personnalisé & Protection par rôles
-- **Architecture** : Structure de la BDD générée intégralement par migrations
+
+* **Framework** : Laravel 11
+* **Base de Données** : MySQL
+* **Authentification** : Laravel Breeze
+* **Frontend** : Blade, Tailwind CSS, Alpine.js (Gestion dynamique des uploads et sliders)
+* **Sécurité** : Middleware `admin`, Validation de formulaires stricte, Policies.
+* **Fichiers** : Gestion du stockage local (`storage/app/public`) pour les images produits et les scans de licences.
 
 # 🚀 Fonctionnalités
-## 1. Partie Publique (Visiteur)
-- **Catalogue Unifié** : Consultation des articles avec filtres par types (Armes, Accessoires, Optiques).
-- **Restriction d'accès** : Les prix et le bouton "Réserver" sont masqués pour les visiteurs non connectés.
-- **Authentification** : Connexion et inscription requises pour interagir.
 
-## 2. Espace Client (Connecté)
-- **Accès complet** : Visualisation des prix et des stocks.
-- **Profil** : Gestion des informations personnelles.
-- **Flux d'achat différencié** :
-  - 🟢 **Accessoires** : Ajout au panier et réservation directe.
-  - 🔴 **Armes** : Ajout au panier possible, mais la validation est bloquée tant qu'un permis de port d'arme valide n'est pas uploadé et validé.
+## 1. Partie Publique (Visiteur)
+
+* **Accueil Immersif** : Carrousel dynamique mettant en avant les nouveautés et les catégories.
+* **Catalogue Unifié** : Consultation des armes avec indicateurs de stock (En stock / Rupture) et badges de catégorie (B/C).
+* **Restriction d'accès** : Les prix et les boutons d'actions sont masqués ou incitent à la connexion pour les visiteurs.
+
+## 2. Espace Client (Tireur/Chasseur)
+
+* **Dashboard Tactique** : Vue d'ensemble de l'état du compte (Validé / En attente / Refusé).
+* **Gestion du Dossier Administratif** :
+* Formulaire d'upload de licence (PDF/Image) avec prévisualisation dynamique (Alpine.js).
+* Champs spécifiques : Numéro SIA, Date d'expiration, Catégorie visée.
+* Suivi en temps réel du statut de validation.
+* Gestion des refus : Affichage du motif du refus par l'admin et possibilité de ré-uploader.
+
+
 
 ## 3. Espace Armurier (Administration)
-- **CRUD Armes** : Gestion complète (Modèle, Marque, Type, Numéro de série, Calibre, Catégorie, Prix, Stock).
-- **CRUD Types d'armes** : Gestion des catégories d'armes (Pistolet, Fusil, etc.).
-- **CRUD Accessoires** : Gestion complète (Nom, Type, Prix, Stock, Description).
-- **CRUD Types d'accessoires** : Gestion des catégories d'accessoires.
-- **Gestion des Réservations** : Vue liste des demandes et validation de la remise après vérification physique.
+
+* **Gestion du Stock (Armes)** : CRUD complet avec gestion des images produits.
+* **Centre de Vérification** :
+* Liste des licences en attente.
+* Visualisation/Téléchargement des scans envoyés par les clients.
+* Actions : **Valider** (débloque l'achat) ou **Refuser** (avec motif obligatoire).
+
+
+* **Indicateurs** : Vue rapide des stocks faibles et des dossiers à traiter.
 
 # 💾 Structure de la Base de Données
-Le projet repose sur 6 tables principales :
 
-| Table | Champs Principaux                                                                                       | Description |
-| --- |---------------------------------------------------------------------------------------------------------| --- |
-| **users** | id, name, email, password, role, email_verified_at, remember_token                                      | Utilisateurs (role : 'admin' ou 'client') |
-| **weapons** | id, model, brand, weapon_type_id, caliber, category, serial_number, price, quantity, image, description | Produits réglementés (Catégorie B, C ou D) |
-| **weapon_types** | id, name                                                                                                | Types d'armes (Pistolet, Fusil, etc.) |
-| **accessories** | id, name, accessory_type_id, price, quantity, description                                               | Produits en vente libre (Optiques, vêtements, etc.) |
-| **accessory_types** | id, name                                                                                                | Types d'accessoires (Optique, Vêtement, Munitions, etc.) |
-| **licenses** | id, user_id, license_number, expiration_date, level                                                     | Permis du client (level : 'B', 'C' ou 'D') |
+Le projet repose sur une structure relationnelle robuste. Voici les tables mises à jour :
 
-## Relations clés
-- `weapons.weapon_type_id` → `weapon_types.id` (Restrict on Delete)
-- `accessories.accessory_type_id` → `accessory_types.id` (Cascade on Delete)
-- `licenses.user_id` → `users.id` (Cascade on Delete)
+### 1. Utilisateurs & Sécurité
+
+| Table | Champs Clés | Description |
+| --- | --- | --- |
+| **users** | `id`, `name`, `email`, `password`, `role` | `role` : 'admin' ou 'client'. |
+
+### 2. Catalogue Produits
+
+| Table | Champs Clés | Description |
+| --- | --- | --- |
+| **weapon_types** | `id`, `name` | Types (Pistolet, Fusil, Carabine...). |
+| **weapons** | `id`, `weapon_type_id`, `brand`, `model`, `description`, `caliber`, `category`, `serial_number`, `price`, `quantity`, `image` | `category` : 'B', 'C' ou 'D'. `image` : chemin de stockage. |
+| **accessories** | `id`, `name`, `accessory_type_id`, `price`, `quantity`, `description` | *(À venir)* Produits non réglementés. |
+
+### 3. Administratif & Conformité (Mise à jour majeure)
+
+| Table | Champs Clés | Description |
+| --- | --- | --- |
+| **licenses** | `id`, `user_id`, `license_number`, `expiration_date`, `level`, `file_path`, `status`, `admin_comment`, `submitted_at`, `verified_at` | Table pivot de la législation. |
+
+**Détails des champs `licenses` :**
+
+* `level` : Type de document ('B' pour Auto préfectorale, 'C' pour Permis chasse/Licence Tir).
+* `file_path` : Chemin sécurisé vers le scan du document.
+* `status` : Enum (`pending`, `approved`, `rejected`).
+* `admin_comment` : Raison du refus (ex: "Document illisible", "Date expirée").
+
+## Relations Clés
+
+* `users` (1) ↔ (1) `licenses` : Un utilisateur possède un seul dossier administratif actif.
+* `weapons` (N) ↔ (1) `weapon_types`.
 
 # ⚙️ Installation en local
 
 ## Prérequis
-- PHP >= 8.2
-- Composer
-- Node.js & NPM
-- MySQL >= 8.0
+
+* PHP >= 8.2
+* Composer
+* Node.js & NPM
+* MySQL >= 8.0
 
 ## Étapes d'installation
 
 ### 1. Cloner le dépôt
+
 ```sh
 git clone https://github.com/Spaceiii/tibaji.git
 cd tibaji
+
 ```
 
 ### 2. Installer les dépendances
+
 ```sh
 composer install
 npm install
+
 ```
 
 ### 3. Configurer l'environnement
+
 ```sh
 cp .env.example .env
 php artisan key:generate
+
 ```
 
 Modifiez le fichier `.env` pour configurer votre base de données :
+
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -94,33 +141,45 @@ DB_PORT=3306
 DB_DATABASE=tibaji
 DB_USERNAME=root
 DB_PASSWORD=
+
 ```
 
-### 4. Créer la base de données
-Créez une base de données MySQL nommée `tibaji` (ou le nom configuré dans `.env`).
+### 4. Créer le lien symbolique (Important pour les images)
+
+Pour que les images des armes et les avatars soient visibles :
+
+```sh
+php artisan storage:link
+
+```
 
 ### 5. Exécuter les migrations et seeders
+
 ```sh
 php artisan migrate --seed
+
 ```
 
-Cette commande va créer toutes les tables et insérer des données de test.
-
 ### 6. Lancer le serveur
+
 ```sh
 # Terminal 1 : Serveur Laravel
 php artisan serve
 
-# Terminal 2 : Build des assets
+# Terminal 2 : Build des assets (Tailwind/Alpine)
 npm run dev
+
 ```
 
 L'application sera accessible à l'adresse : `http://localhost:8000`
 
 ## Comptes de test
+
 Après le seeding, vous pouvez vous connecter avec :
-- **Admin** : admin@tibaji.fr / password
-- **Client** : client@tibaji.fr / password
 
+* **Admin** : `admin@tibaji.fr` / `password`
+* **Client** : `client@tibaji.fr` / `password`
 
-Dernière mise à jour : 17 Décembre 2025
+---
+
+*Dernière mise à jour : Janvier 2026*
