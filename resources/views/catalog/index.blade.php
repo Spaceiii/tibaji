@@ -100,7 +100,11 @@
                                     </a>
 
                                     @if(Auth::user()->role !== 'admin')
-                                        <form action="#" method="POST" class="flex-[3]"> @csrf
+                                        <form action="{{ route('cart.add') }}" method="POST" class="flex-[3]">
+                                            @csrf
+                                            <input type="hidden" name="type" value="weapon">
+                                            <input type="hidden" name="id" value="{{ $weapon->id }}">
+                                            <input type="hidden" name="quantity" value="1">
                                             <button type="submit"
                                                     class="w-full justify-center inline-flex items-center px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition ease-in-out duration-200 gap-2
                                                     {{ $weapon->quantity > 0
@@ -212,7 +216,11 @@
                                 </div>
 
                                 @if(Auth::user()->role !== 'admin')
-                                    <form action="#" method="POST" class="w-full"> @csrf
+                                    <form action="{{ route('cart.add') }}" method="POST" class="w-full">
+                                        @csrf
+                                        <input type="hidden" name="type" value="accessory">
+                                        <input type="hidden" name="id" value="{{ $accessory->id }}">
+                                        <input type="hidden" name="quantity" value="1">
                                         <button type="submit"
                                                 class="w-full justify-center inline-flex items-center px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition ease-in-out duration-200 gap-2
                                                 {{ $accessory->quantity > 0
