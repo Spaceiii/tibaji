@@ -46,6 +46,10 @@
                                     <span class="bg-indigo-600 text-white py-0.5 px-2 rounded-full text-xs font-bold">{{ \App\Http\Controllers\CartController::getCartCount() }}</span>
                                 @endif
                             </x-nav-link>
+                            
+                            <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                                {{ __('Mes commandes') }}
+                            </x-nav-link>
                         @endif
                     @endauth
                 </div>
@@ -171,6 +175,10 @@
                             <span class="bg-indigo-600 text-white py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Http\Controllers\CartController::getCartCount() }}</span>
                         @endif
                     </x-responsive-nav-link>
+                    
+                    <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                        {{ __('Commandes') }}
+                    </x-nav-link>
                 @endif
             @endauth
         </div>
