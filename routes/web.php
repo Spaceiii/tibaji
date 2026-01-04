@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AccessoryController;
+use App\Http\Controllers\Admin\AdminLicenseController;
 use App\Http\Controllers\Admin\WeaponController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Weapon;
 use App\Models\Accessory;
@@ -13,12 +15,12 @@ Route::get('/', function () {
         ->orderBy('created_at', 'desc')
         ->take(4)
         ->get();
-    
+
     $featuredAccessories = Accessory::with('accessoryType')
         ->orderBy('created_at', 'desc')
         ->take(4)
         ->get();
-    
+
     return view('welcome', compact('featuredWeapons', 'featuredAccessories'));
 })->name('welcome');
 
@@ -32,12 +34,19 @@ Route::get('/catalogue/{weapon}', [CatalogController::class, 'show'])->name('cat
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('weapons', WeaponController::class);
     Route::resource('accessories', AccessoryController::class);
+    Route::get('/licenses', [AdminLicenseController::class, 'index'])->name('licenses.index');
+    Route::patch('/licenses/{license}/approve', [AdminLicenseController::class, 'approve'])->name('licenses.approve');
+    Route::patch('/licenses/{license}/reject', [AdminLicenseController::class, 'reject'])->name('licenses.reject');
+    Route::get('/licenses/{license}/download', [AdminLicenseController::class, 'download'])->name('licenses.download');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Afficher la page (GET)
+    Route::get('/ma-licence', [LicenseController::class, 'create'])->name('license.create');
+    Route::post('/license', [LicenseController::class, 'store'])->name('license.store');
 });
 
 require __DIR__.'/auth.php';
