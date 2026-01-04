@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AccessoryController;
 use App\Http\Controllers\Admin\WeaponController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Weapon;
@@ -38,6 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Cart routes
+    Route::get('/panier', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/panier/add', [CartController::class, 'add'])->name('cart.add');
+    Route::patch('/panier/{key}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/panier/{key}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::delete('/panier', [CartController::class, 'clear'])->name('cart.clear');
 });
 
 require __DIR__.'/auth.php';
