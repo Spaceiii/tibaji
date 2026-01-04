@@ -51,7 +51,7 @@ class CartController extends Controller
             
             // Check if user has valid license for this weapon
             if (auth()->check()) {
-                $hasValidLicense = auth()->user()->licenses()
+                $hasValidLicense = auth()->user()->license()
                     ->where('status', 'approved')
                     ->where('level', $item->category)
                     ->where('expiration_date', '>', now())
