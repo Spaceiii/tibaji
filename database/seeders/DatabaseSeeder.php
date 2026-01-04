@@ -10,123 +10,107 @@ use App\Models\Accessory;
 use App\Models\License;
 use App\Models\Reservation;
 use App\Models\ReservationItem;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-
-        // reset and remove foreign key constraints
+        // 1. NETTOYAGE COMPLET
         Schema::disableForeignKeyConstraints();
         ReservationItem::truncate();
         Reservation::truncate();
-        WeaponType::truncate();
-        AccessoryType::truncate();
-        Weapon::truncate();
-        Accessory::truncate();
         License::truncate();
+        Weapon::truncate();
+        WeaponType::truncate();
+        Accessory::truncate();
+        AccessoryType::truncate();
         User::truncate();
         Schema::enableForeignKeyConstraints();
 
-        WeaponType::factory()->createMany([
-            ['name' => 'Pistolet'],
-            ['name' => 'Carabine'],
-            ['name' => 'Fusil à pompe'],
-            ['name' => 'Fusil de précision'],
-        ]);
 
-        // Créer l'admin
-        User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Admin Tibaji',
             'email' => 'admin@tibaji.fr',
             'role' => 'admin',
+            'password' => bcrypt('password'),
         ]);
 
-        // Créer un client de test
-        User::factory()->create([
-            'name' => 'Client Test',
+        $clientValide = User::factory()->create([
+            'name' => 'Client Validé',
             'email' => 'client@tibaji.fr',
             'role' => 'client',
+            'password' => bcrypt('password'),
         ]);
 
-        // Créer d'autres utilisateurs
-        User::factory(8)->create();
-
-        AccessoryType::factory()->createMany([
-            ['name' => 'Lunette'],
-            ['name' => 'Silencieux'],
-            ['name' => 'Poignée'],
-            ['name' => 'Chargeur'],
-            ['name' => 'Treillis']
+        $clientPending = User::factory()->create([
+            'name' => 'Client En Attente',
+            'email' => 'pending@tibaji.fr',
+            'role' => 'client',
+            'password' => bcrypt('password'),
         ]);
 
-        Weapon::factory(20)->create();
-        Accessory::factory(30)->create();
-        
-        // Créer des licenses avec différents statuts
-        $clients = User::where('role', 'client')->get();
-        
-        // Quelques licenses approuvées
-        License::factory()->count(5)->approved()->create([
-            'user_id' => $clients->random()->id,
-        ]);
-        
-        // Quelques licenses en attente
-        License::factory()->count(3)->pending()->create([
-            'user_id' => $clients->random()->id,
-        ]);
-        
-        // Une license rejetée
-        License::factory()->count(1)->rejected()->create([
-            'user_id' => $clients->random()->id,
-        ]);
-        
-        // Une license expirée
-        License::factory()->count(1)->expired()->approved()->create([
-            'user_id' => $clients->random()->id,
+        $clientRejected = User::factory()->create([
+            'name' => 'Client Refusé',
+            'email' => 'rejected@tibaji.fr',
+            'role' => 'client',
+            'password' => bcrypt('password'),
         ]);
 
-        // Créer des réservations de test
-        $clients = User::where('role', 'client')->get();
-        
-        foreach ($clients->take(5) as $client) {
-            // Créer 1-3 réservations par client
-            $reservationCount = rand(1, 3);
-            
-            for ($i = 0; $i < $reservationCount; $i++) {
-                $reservation = Reservation::factory()->create([
-                    'user_id' => $client->id,
-                ]);
+        $clientNew = User::factory()->create([
+            'name' => 'Nouveau Client',
+            'email' => 'new@tibaji.fr',
+            'role' => 'client',
+            'password' => bcrypt('password'),
+        ]);
 
-                // Ajouter 1-4 items par réservation
-                $itemCount = rand(1, 4);
-                
-                for ($j = 0; $j < $itemCount; $j++) {
-                    // 50% chance d'être une arme ou un accessoire
-                    if (rand(0, 1)) {
-                        ReservationItem::factory()->weapon()->create([
-                            'reservation_id' => $reservation->id,
-                        ]);
-                    } else {
-                        ReservationItem::factory()->accessory()->create([
-                            'reservation_id' => $reservation->id,
-                        ]);
-                    }
-                }
+        $this->call([
+            WeaponSeeder::class,
+            AccessorySeeder::class,
+        ]);
 
-                // Recalculer le total de la réservation
-                $reservation->update([
-                    'total_amount' => $reservation->calculateTotal(),
-                ]);
-            }
-        }
+
+        // Licence VALIDÉE pour le client principal
+        License::create([
+            'user_id' => $clientValide->id,
+            'license_number' => '2024-VALID-01',
+            'level' => 'B', // Accès total
+            'expiration_date' => now()->addYear(),
+            'file_path' => 'licenses/sample.jpg', // Chemin fictif pour le test
+            'status' => 'approved',
+            'submitted_at' => now()->subDays(2),
+            'verified_at' => now()->subDay(),
+        ]);
+
+        // Licence EN ATTENTE
+        License::create([
+            'user_id' => $clientPending->id,
+            'license_number' => '2024-PEND-02',
+            'level' => 'C',
+            'expiration_date' => now()->addMonths(6),
+            'file_path' => 'licenses/sample.jpg',
+            'status' => 'pending',
+            'submitted_at' => now()->subHours(4),
+        ]);
+
+        // Licence REFUSÉE
+        License::create([
+            'user_id' => $clientRejected->id,
+            'license_number' => '2024-REJ-03',
+            'level' => 'C',
+            'expiration_date' => now()->addMonths(6),
+            'file_path' => 'licenses/sample.jpg',
+            'status' => 'rejected',
+            'submitted_at' => now()->subDays(5),
+            'verified_at' => now()->subDays(4),
+            'admin_comment' => 'Document illisible ou périmé. Merci de renvoyer un scan net.',
+        ]);
+
+        $weapon = Weapon::first();
+        $accessory = Accessory::first();
     }
 }
