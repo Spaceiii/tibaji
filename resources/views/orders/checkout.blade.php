@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Finaliser ma commande') }}
+            {{ __('Finaliser ma réservation') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    
+
                     @if($hasWeapons)
                         <div class="mb-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700">
                             <div class="flex">
@@ -20,14 +20,14 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium">
-                                        Votre commande contient des armes réglementées. Elle devra être validée par un administrateur avant expédition.
+                                        Votre réservation contient des armes réglementées. Elle devra être validée par un administrateur avant expédition.
                                     </p>
                                 </div>
                             </div>
                         </div>
                     @endif
 
-                    <h3 class="text-lg font-bold mb-4">Récapitulatif de votre commande</h3>
+                    <h3 class="text-lg font-bold mb-4">Récapitulatif de votre réservation</h3>
 
                     <div class="space-y-4 mb-6">
                         @foreach($cart as $item)
@@ -75,14 +75,14 @@
 
                     <form action="{{ route('orders.store') }}" method="POST">
                         @csrf
-                        
+
                         <div class="flex gap-4">
                             <a href="{{ route('cart.index') }}" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg text-center transition">
                                 Retour au panier
                             </a>
-                            
+
                             <button type="submit" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                                Confirmer la commande
+                                Confirmer la réservation
                             </button>
                         </div>
                     </form>

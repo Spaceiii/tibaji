@@ -133,7 +133,7 @@ class OrderController extends Controller
             DB::commit();
 
             return redirect()->route('orders.show', $order)
-                ->with('success', 'Votre commande a été créée avec succès ! ' .
+                ->with('success', 'Votre réservation a été créée avec succès ! ' .
                     ($hasWeapons ? 'Elle sera validée par un administrateur avant expédition.' : 'Vous recevrez un email de confirmation.'));
 
         } catch (\Exception $e) {

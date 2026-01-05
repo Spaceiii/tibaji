@@ -19,7 +19,7 @@
                     <div class="mb-6 flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-bold">{{ $order->order_number }}</h3>
-                            <p class="text-gray-600">Commande passée le {{ $order->created_at->format('d/m/Y à H:i') }}</p>
+                            <p class="text-gray-600">Réservation passée le {{ $order->created_at->format('d/m/Y à H:i') }}</p>
                         </div>
                         <span class="px-4 py-2 rounded-full text-sm font-bold {{ $order->getStatusBadgeClass() }}">
                             {{ $order->getStatusLabel() }}
@@ -28,21 +28,21 @@
 
                     @if($order->status === 'pending' && $order->hasWeapons())
                         <div class="mb-6 p-4 bg-blue-50 border-l-4 border-blue-400 text-blue-700">
-                            <p class="font-medium">Votre commande est en attente de validation.</p>
+                            <p class="font-medium">Votre Réservation est en attente de validation.</p>
                             <p class="text-sm mt-1">Elle sera examinée par un administrateur dans les plus brefs délais.</p>
                         </div>
                     @endif
 
                     @if($order->status === 'approved')
                         <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-400 text-green-700">
-                            <p class="font-medium">Votre commande a été approuvée !</p>
+                            <p class="font-medium">Votre Réservation a été approuvée !</p>
                             <p class="text-sm mt-1">Elle sera préparée et expédiée prochainement.</p>
                         </div>
                     @endif
 
                     @if($order->status === 'rejected')
                         <div class="mb-6 p-4 bg-red-50 border-l-4 border-red-400 text-red-700">
-                            <p class="font-medium">Votre commande a été refusée.</p>
+                            <p class="font-medium">Votre Réservation a été refusée.</p>
                             @if($order->admin_comment)
                                 <p class="text-sm mt-2">Raison : {{ $order->admin_comment }}</p>
                             @endif
@@ -81,7 +81,7 @@
 
                     <div class="flex gap-4">
                         <a href="{{ route('orders.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-lg transition">
-                            ← Retour à mes commandes
+                            ← Retour à mes Réservation
                         </a>
                     </div>
 

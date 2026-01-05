@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Détails de la Commande #') }}{{ $order->id }}
+                {{ __('Détails de la réservation #') }}{{ $order->id }}
             </h2>
             <a href="{{ route('admin.orders.index') }}" class="text-sm text-gray-600 hover:text-indigo-600">
                 &larr; Retour à la liste
@@ -16,7 +16,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2 space-y-6">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-4 border-b pb-2">Articles commandés</h3>
+                        <h3 class="text-lg font-bold mb-4 border-b pb-2">Articles réservé</h3>
                         <div class="space-y-4">
                             @foreach($order->items as $item)
                                 <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="mt-6 border-t pt-4 text-right">
-                            <p class="text-gray-600">Total de la commande</p>
+                            <p class="text-gray-600">Total de la réserve</p>
                             <p class="text-3xl font-extrabold text-indigo-700">{{ number_format($order->total_amount, 2) }} €</p>
                         </div>
                     </div>
@@ -48,8 +48,8 @@
                                 <form action="{{ route('admin.orders.approve', $order) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" onclick="return confirm('Approuver cette commande ?')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition">
-                                        Approuver la commande
+                                    <button type="submit" onclick="return confirm('Approuver cette réservation ?')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition">
+                                        Approuver la réservation
                                     </button>
                                 </form>
 
@@ -77,7 +77,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-lg shadow-lg">
-                                Marquer comme expédiée / terminée
+                                Marquer comme terminée
                             </button>
                         </form>
                     @endif
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="bg-gray-100 rounded-lg p-4">
-                        <p class="text-xs text-gray-500 uppercase font-bold mb-1">Historique Commande</p>
+                        <p class="text-xs text-gray-500 uppercase font-bold mb-1">Historique réservation</p>
                         <ul class="text-xs space-y-1">
                             <li>Créée le : {{ $order->created_at->format('d/m/Y H:i') }}</li>
                             @if($order->approved_at) <li class="text-green-600">Approuvée le : {{ \Carbon\Carbon::parse($order->approved_at)->format('d/m/Y H:i') }}</li> @endif

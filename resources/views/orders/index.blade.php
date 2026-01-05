@@ -15,8 +15,8 @@
                             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
-                            <h3 class="mt-2 text-sm font-medium text-gray-900">Aucune commande</h3>
-                            <p class="mt-1 text-sm text-gray-500">Vous n'avez pas encore passé de commande.</p>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">Aucune réservation</h3>
+                            <p class="mt-1 text-sm text-gray-500">Vous n'avez pas encore de réservation.</p>
                             <div class="mt-6">
                                 <a href="{{ route('catalog.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                                     Parcourir le catalogue
@@ -29,7 +29,7 @@
                                 <div class="border rounded-lg p-4 hover:shadow-md transition">
                                     <div class="flex items-start justify-between mb-4">
                                         <div>
-                                            <h3 class="font-bold text-lg">Commande {{ $order->order_number }}</h3>
+                                            <h3 class="font-bold text-lg">Réservation {{ $order->order_number }}</h3>
                                             <p class="text-sm text-gray-600">{{ $order->created_at->format('d/m/Y à H:i') }}</p>
                                         </div>
                                         <span class="px-3 py-1 rounded-full text-xs font-bold {{ $order->getStatusBadgeClass() }}">

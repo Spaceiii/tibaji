@@ -37,7 +37,7 @@
                                 {{ __('Licences') }}
                             </x-nav-link>
                             <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
-                                {{ __('Gestion Commandes') }}
+                                {{ __('Gestion Réservation') }}
                             </x-nav-link>
                         @else
                             <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')" class="flex items-center gap-2">
@@ -51,7 +51,7 @@
                             </x-nav-link>
 
                             <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
-                                {{ __('Mes commandes') }}
+                                {{ __('Mes réservation') }}
                             </x-nav-link>
                         @endif
                     @endauth

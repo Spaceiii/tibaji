@@ -111,7 +111,7 @@
                             </a>
 
                             <a href="{{ route('orders.checkout') }}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                                Finaliser ma commande →
+                                Finaliser ma Réservation →
                             </a>
                         </div>
                     @endif
