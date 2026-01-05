@@ -1,7 +1,3 @@
-Voici le fichier `README.md` mis à jour. J'ai intégré les **nouvelles tables** (notamment la structure complète des licences avec le statut, les dates de soumission/vérification, et les commentaires admin) ainsi que les nouvelles fonctionnalités que nous avons développées (Dashboard "Tactique", Upload avec prévisualisation, Workflow de validation).
-
----
-
 # 🎯 Projet Laravel - Armurerie en Ligne
 
 Bienvenue sur le dépôt de notre application de gestion d'armurerie. Ce projet a été développé dans le cadre scolaire pour répondre à une problématique métier complexe : la gestion mixte de ventes libres (accessoires) et de ventes réglementées (armes), avec un accent particulier sur la conformité légale (SIA).
