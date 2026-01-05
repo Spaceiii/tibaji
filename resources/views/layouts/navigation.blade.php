@@ -36,6 +36,9 @@
                             <x-nav-link :href="route('admin.licenses.index')" :active="request()->routeIs('admin.licenses.*')">
                                 {{ __('Licences') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                                {{ __('Gestion Commandes') }}
+                            </x-nav-link>
                         @else
                             <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.*')" class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +49,7 @@
                                     <span class="bg-indigo-600 text-white py-0.5 px-2 rounded-full text-xs font-bold">{{ \App\Http\Controllers\CartController::getCartCount() }}</span>
                                 @endif
                             </x-nav-link>
-                            
+
                             <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
                                 {{ __('Mes commandes') }}
                             </x-nav-link>
@@ -175,11 +178,9 @@
                             <span class="bg-indigo-600 text-white py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Http\Controllers\CartController::getCartCount() }}</span>
                         @endif
                     </x-responsive-nav-link>
-                    
-                    <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
-                        {{ __('Commandes') }}
-                    </x-nav-link>
+
                 @endif
+
             @endauth
         </div>
 

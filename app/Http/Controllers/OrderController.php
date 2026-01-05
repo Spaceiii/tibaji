@@ -62,18 +62,6 @@ class OrderController extends Controller
                     return redirect()->route('cart.index')
                         ->with('error', 'Stock insuffisant pour ' . $item['name']);
                 }
-
-                // Vérifier le permis
-                $hasValidLicense = auth()->user()->licenses()
-                    ->where('status', 'approved')
-                    ->where('level', $item['category'])
-                    ->where('expiration_date', '>', now())
-                    ->exists();
-
-                if (!$hasValidLicense) {
-                    return redirect()->route('cart.index')
-                        ->with('error', 'Vous n\'avez pas de permis valide pour ' . $item['name']);
-                }
             } else {
                 $accessory = Accessory::find($item['id']);
                 if (!$accessory || $accessory->quantity < $item['quantity']) {
@@ -145,13 +133,14 @@ class OrderController extends Controller
             DB::commit();
 
             return redirect()->route('orders.show', $order)
-                ->with('success', 'Votre commande a été créée avec succès ! ' . 
+                ->with('success', 'Votre commande a été créée avec succès ! ' .
                     ($hasWeapons ? 'Elle sera validée par un administrateur avant expédition.' : 'Vous recevrez un email de confirmation.'));
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('cart.index')
-                ->with('error', 'Une erreur est survenue lors de la création de la commande.');
+            return redirect()->route('cart.index')->with('error', $e->getMessage());
+            //return redirect()->route('cart.index')
+            //    ->with('error', 'Une erreur est survenue lors de la création de la commande.');
         }
     }
 }
